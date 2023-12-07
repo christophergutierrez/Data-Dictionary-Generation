@@ -139,7 +139,7 @@ In general, I don't recommend this approach.
 Getting prompts correct requires a lot of trial and error, particularly when narrowing down a specific use case.
 This code is divided for ease of OpenAI playground iteration.
 
-Included is the general prompt language I used, but it can be significantly improved for specific use cases.
+The general prompt language I used is included, but it can be significantly improved for specific use cases.
 
 ### Create Table Describer Prompt
 Table_Describer_prompt.txt contains the prompt for the first draft of a data dictionary.
@@ -152,7 +152,7 @@ Column_Describer_prompt.txt contains the prompt to update the data dictionary us
 For tables with a modest number of columns, it should work.
 However, the code and prompt may require modification for tables with large numbers of columns.
 The code could chunk requests on a per-column basis.
-The prompt could be adjusted to accept per column request and ensure it does not alter columns unrelated to the specified column.
+The prompt could be adjusted to accept per-column requests and ensure it does not alter columns unrelated to the specified column.
 
 ## Example using program
 ### Create a new Python environment
@@ -188,14 +188,18 @@ COLUMN_SUBSCRIBER=
 ```
 
 ### Run create_data_dictionary_stub.py
-`python create_data_dictionary_stub.py employee.csv`
+```
+python create_data_dictionary_stub.py employee.csv
+```
 
 After this, employee_base.json exists in the example table.
 
 ### Run complete_data_dictionary.py
 Given the output from the other two programs, we can now create the data dictionary.
 
-`python complete_data_dictionary.py employee_base.json example/employee_data_dictionary.json`
+```
+python complete_data_dictionary.py employee_base.json example/employee_data_dictionary.json
+```
 
 The output to this is employee_data_dictionary.json. The final data dictionary.
 
