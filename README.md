@@ -30,7 +30,7 @@ There is minimal downstream impact if the JSON schema is altered.
 ### Base Table Description (create_data_dictionary_stub.py)
 This script reads a CSV file's header and creates a crude JSON-formatted data dictionary as a placeholder.
 It then interacts with the OpenAI Table Describer assistant, which modifies the JSON values while keeping the keys constant.
-The updates are based table and column names and any additional information saved in the prompt.
+The updates are based on table and column names and any additional information saved in the prompt.
 It requires local_util.py
 
 ### Table Description Update (complete_data_dictionary.py)
@@ -47,7 +47,7 @@ It requires local_util.py
 ### Create summary statistics for each column in a table
 generate_summary_statistics.py is isolated to allow easy replacement with something database-specific.
 Gathering column statistics via Pandas is not scalable.
-At scale, it's best to use the database or data warehouse itself to gather these statistics.
+It's best to use the database or data warehouse functions to gather these statistics at scale.
 A sample can be downloaded to CSV to test the code and improve prompts.
 
 This program does not interact with OpenAI.
@@ -95,16 +95,16 @@ The JSON format is as follows:
     }
 }
 ```
-### Create a base table table description
+### Create a base table description
 create_data_dictionary_stub.py is a program that reads the header row of a CSV file and constructs a placeholder data dictionary in JSON format.
 It first creates a stub with the table and column names.
 It then passes this stub to the OpenAI Table Describer assistant.
 The assistant alters the JSON values but leaves the keys unchanged.
 
 
-This is partitioned so the table description is separate from the column description.
-In toy examples, this portion adds little value; however, in a real case, the Table Describer prompt should be heavily modified for the specifics of the overall database.
-Reference to how tables join to other tables would go in the Table Describer prompt. In addition, the purpose of the warehouse and main use cases of the data could be inserted.
+This is partitioned so the table description prompt is separate from the column description prompt.
+In toy examples, the separation adds little value; however, in a real case, the Table Describer prompt should be heavily modified for the specifics of the overall database.
+Reference to how tables join to other tables would go in the Table Describer prompt. In addition, the purpose of the warehouse and the main use cases of the data could be inserted.
 
 This program interacts with OpenAI and imports local_util.py. 
 The JSON format is as follows:
@@ -122,14 +122,14 @@ The JSON format is as follows:
 ## Update table description based on summary statistics
 complete_data_dictionary.py consumes the output from create_data_dictionary_stub.py and generate_summary_statistics.py.
 It updates the output of create_data_dictionary_stub.py using the information from generate_summary_statistics.py.
-The output JSON has the exact keys as the create_data_dictionary_stub.py output, only the values are different.
+The output JSON has the same keys as the create_data_dictionary_stub.py output; only the values differ.
 
 This is partitioned for two reasons.
 * First, the Column Describer prompt takes in more column-specific information than the Table Describer.
 It, therefore, should have its own prompt to assist its more detailed output and require less general database information.
 * Second, this code may require refactoring based on scale.
 For large tables, OpenAI may have difficulty consuming two large JSON files.
-In that case, it may be required to chunk the summary data by column and loop through. Making an OpenAI COLUMN Describer call at each iteration.
+In that case, it may be required to chunk the summary data by column and loop through, making an OpenAI COLUMN Describer call at each iteration.
 
 This program interacts with OpenAI and imports local_util.py.
 
@@ -139,18 +139,19 @@ In general, I don't recommend this approach.
 Getting prompts correct requires a lot of trial and error, particularly when narrowing down a specific use case.
 This code is divided for ease of OpenAI playground iteration.
 
-Included are the general prompt language I used, but they can be greatly improved for specific use cases.
+Included is the general prompt language I used, but it can be significantly improved for specific use cases.
 
 ### Create Table Describer Prompt
-Table_Describer_prompt.txt contains the prompt for a first draft of a data dictionary.
+Table_Describer_prompt.txt contains the prompt for the first draft of a data dictionary.
 It's based on a common sense guess from the names of the table and fields.
 More should be added to include the business use case for the data in the schema.
 Join information across tables could also be added here.
 
 ### Create Column Describer Prompt
-Column_Describer_prompt.txt contains the prompt used to update the data dictionary using summary statistics per column. For tables with a modest number of columns, it should work.
-However, the code and prompt require modification for tables with large numbers of columns.
-The code could chunk requests on a per-column basis. 
+Column_Describer_prompt.txt contains the prompt to update the data dictionary using summary statistics per column.
+For tables with a modest number of columns, it should work.
+However, the code and prompt may require modification for tables with large numbers of columns.
+The code could chunk requests on a per-column basis.
 The prompt could be adjusted to accept per column request and ensure it does not alter columns unrelated to the specified column.
 
 ## Example using program
