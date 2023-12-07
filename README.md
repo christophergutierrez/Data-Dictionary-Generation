@@ -47,7 +47,7 @@ It requires local_util.py
 ### Create summary statistics for each column in a table
 generate_summary_statistics.py is isolated to allow easy replacement with something database-specific.
 Gathering column statistics via Pandas is not scalable.
-It's best to use the database or data warehouse functions to gather these statistics at scale.
+Using the database or data warehouse functions to gather these statistics at scale is best.
 A sample can be downloaded to CSV to test the code and improve prompts.
 
 This program does not interact with OpenAI.
@@ -160,12 +160,16 @@ There are many Python virtual environments to choose from. I used conda with Pyt
 
 Install the Python requirements.
 
-`pip install -r requirements.txt`
+```
+pip install -r requirements.txt
+```
 
 generate_summary_statistics.py does not require environment variables.
 
 ### Run generate_summary_statistics.py
-`python generate_summary_statistics.py employee.csv`
+```
+python generate_summary_statistics.py employee.csv
+```
 
 In this example, employee_summary.json should now exist in the example directory.
 
