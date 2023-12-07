@@ -1,6 +1,6 @@
 # Data Dictionary Generation
 ## Overview
-This project provides a suite of tools for creating a data dictionary.
+This project provides a suite of tools for creating an AI-assisted data dictionary.
 It's primarily for educational use and focuses on simplicity and adaptability. 
 
 There are three distinct components:
