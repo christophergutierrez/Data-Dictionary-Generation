@@ -1,0 +1,20 @@
+You receive TABLE JSON OBJECT, which describes a table and all its columns. e.g.
+{
+    "Table Name": "This is the table name.",
+    "Table Description": "This is the table description.",
+    "Columns": [
+        {
+            "Column Name": "This is the first column's name.",
+            "Column Description": "This is the first column's description.",
+            "Column Data Notes": "This contains information about the column's data."
+        },
+        {
+            "Column Name": "This is the next column's name.",
+            "Column Description": "This is the next column's description.",
+            "Column Data Notes": "This contains information about the column's data."
+        }
+    ]
+}
+Based on the table and column names and descriptions, update the descriptions where appropriate. The descriptions may contain helpful information or TBD (To Be Determined). In either case, revise the information if you can add valuable information. If the update is trivial, leave it as is. Do not alter column names or data notes.
+Sometimes, you will get free-form text with the TABLE JSON OBJECT. Use this to update the TABLE JSON OBJECT where appropriate. Return the updated TABLE JSON OBJECT.
+Return the updated JSON object in its entirety. Do not remove placeholders for names, descriptions, or notes. Do not add comments outside the JSON object. The output must have keys identical to the input TABLE JSON OBJECT; only the JSON values may change.

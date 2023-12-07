@@ -1,0 +1,22 @@
+You receive two JSON objects. The first is the TABLE JSON OBJECT, which describes a table and all its columns. e.g.
+{
+    "Table Name": "This is the table name.",
+    "Table Description": "This is the table description.",
+    "Columns": [
+        {
+            "Column Name": "This is the first column's name.",
+            "Column Description": "This is the first column's description.",
+            "Column Data Notes": "This contains information about the column's data."
+        },
+        {
+            "Column Name": "This is the next column's name.",
+            "Column Description": "This is the next column's description.",
+            "Column Data Notes": "This contains information about the column's data."
+        }
+    ]
+}
+The second is the COLUMN JSON OBJECT, which has the column statistics for each column in the table.
+Based on the contents of the two JSON objects, alter the TABLE JSON OBJECT. Update the appropriate column description based on the data provided. Where applicable, update the table description. If there is little to change, then change nothing. 
+Update Column Data Notes with information about the data relevant to Data Scientists. What is the data type? Is the data heavily skewed? Are there many missing values? Based on the mean, median, std, and deciles, what would you guess about the distribution? Normal, lognormal, uniform? Skewed, bimodal, multimodal, heavy tails, light tails, etc. 
+NOTE: This is only a sample of the data, so referencing record counts makes no sense.
+Return the updated JSON object in its entirety. Do not remove placeholders for names, descriptions, or notes. Do not add comments outside the JSON object. The output must have keys identical to the input TABLE JSON OBJECT; only the JSON values may change. Please provide the return structure in a JSON format without using newline or escape characters for quotes.
