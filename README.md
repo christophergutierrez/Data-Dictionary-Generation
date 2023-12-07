@@ -9,7 +9,7 @@ Generate summary statistics for each column in a database table.
 2. **Base Table Description Creation:**
 Construct a basic description of the table.
 3. **Table Description Update:**
-Update the table description using the base description and summary statistics.
+Update the basic table description using the summary statistics.
 
 ## Key Features
 **Modularity:**
