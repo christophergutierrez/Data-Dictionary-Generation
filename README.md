@@ -198,7 +198,7 @@ After this, employee_base.json exists in the example table.
 Given the output from the other two programs, we can now create the data dictionary.
 
 ```
-python complete_data_dictionary.py employee_base.json example/employee_data_dictionary.json
+python complete_data_dictionary.py employee_base.json employee_summary.json
 ```
 
 The output to this is employee_data_dictionary.json. The final data dictionary.
